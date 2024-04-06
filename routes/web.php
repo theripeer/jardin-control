@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,15 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    //return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::match(['GET', 'POST'], '/login', [AuthController::class, 'login'])->name('login');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});

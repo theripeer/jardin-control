@@ -9,24 +9,35 @@ use Validate;
 
 class AuthController extends Controller
 {
+    protected $redirectTo = 'dashboard';
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
     public function login(Request $request)
     {
-        if($request->isMethod('POST')){
+        if ($request->isMethod('POST')) {
+
             $request->validate([
                 'login'       => 'required|string',
                 'password'    => 'required|string',
                 'remember_me' => 'boolean',
             ]);
-            
+
             $fieldTypeLogin = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-            $credentials = [$fieldTypeLogin => $request->email, 'password' => $request->password];
-
+            $credentials = [$fieldTypeLogin => $request->login, 'password' => $request->password];
             $user = User::where($fieldTypeLogin, request()->get('login'))->first();
-
-            if (is_null($user) || !$user->is_active || !Auth::attempt($credentials)) {
-                return redirect()->back();
+            if (Auth::attempt($credentials) && $user->is_active) {
+                $request->session()->regenerate();
+                return redirect()->route('dashboard')
+                    ->withSuccess('You have successfully logged in!');
             }
+
+            return back()->withErrors([
+                'email' => 'Your provided credentials do not match in our records.',
+            ])->onlyInput('email');
         }
 
         return view('login');
