@@ -144,14 +144,14 @@
             </div>
         </div>
 
-        <div class="rightbar-overlay"></div>
+       {{--  <div class="rightbar-overlay"></div> --}}
         <!-- /End-bar -->
         <!-- bundle -->
         <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
         <script src="{{ asset('assets/js/app.min.js') }}"></script>
 
         <!-- demo app -->
-        <script src="{{ asset('assets/js/pages/demo.dashboard-projects.js') }}"></script>
+        {{-- <script src="{{ asset('assets/js/pages/demo.dashboard-projects.js') }}"></script> --}}
         <!-- end demo js-->
 
     </body>

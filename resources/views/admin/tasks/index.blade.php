@@ -6,7 +6,7 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Servicios</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tareas</a></li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>
@@ -17,27 +17,26 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('teams.form') }}" class="btn btn-primary float-end"> + Agregar</a>
+                <a href="{{ route('tasks.form') }}" class="btn btn-primary float-end" > + Agregar</a>
                 <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>Folio</th>
                             <th>Servicio</th>
-                            <th>Precio</th>
+                            <th>Cuadrilla</th>
                             <th width="20%">Accion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($services as $service)
+                        @forelse ($tasks as $type)
                             <tr>
-                                <td>{{$service->id}}</td>
-                                <td>{{$service->name}}</td>
-                                <td>{{$service->price}}</td>
-                                <td>
-                                    <a href="{{route('services.form', $service->id)}}"> Editar</a>
-                                    <a href="{{route('services.form', $service->id)}}" class="text-danger"> Eliminar</a>
-                                </td>
-                            </tr>
+                            <td>{{$type->name}}</td>
+                            <td>{{$type->is_active == 1 ? 'Si' : 'No'}}</td>
+                            <td>
+                                <a href="{{route('tasks.form', $type->id)}}"> Editar</a>
+                                <a href="{{route('tasks.form', $type->id)}}" class="text-danger"> Eliminar</a>
+                            </td>
+                        </tr>
                         @empty
                             
                         @endforelse

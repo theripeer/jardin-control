@@ -28,15 +28,14 @@
         <li class="side-nav-item">
             <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
                 <i class="uil-home-alt"></i>
-                <span class="badge bg-success float-end">4</span>
                 <span> Dashboard </span>
             </a>
         </li>
 
-        <li class="side-nav-title side-nav-item">Apps</li>
+        <li class="side-nav-title side-nav-item">Operaciones</li>
 
         <li class="side-nav-item">
-            <a href="apps-chat.html" class="side-nav-link">
+            <a href="{{route('tasks.index')}}" class="side-nav-link">
                 <i class="mdi mdi-format-list-bulleted"></i>
                 <span> Tareas </span>
             </a>
@@ -75,7 +74,7 @@
     </ul>
     <!-- End Sidebar -->
 
-    <div class="clearfix"></div>
+    {{-- <div class="clearfix"></div> --}}
 
 </div>
 <!-- Sidebar -left -->

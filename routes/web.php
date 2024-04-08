@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TypeController;
 
@@ -44,5 +45,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['prefix' => '/cuadrillas', 'as' => 'teams.'], function () {
         Route::get('', [TeamController::class, 'index'])->name('index');
         Route::match(['GET', 'POST'], '/agregar-editar/{id?}', [TeamController::class, 'addEdit'])->name('form');
+    });
+
+    Route::group(['prefix' => '/tareas', 'as' => 'tasks.'], function () {
+        Route::get('', [TaskController::class, 'index'])->name('index');
+        Route::match(['GET', 'POST'], '/agregar-editar/{id?}', [TaskController::class, 'addEdit'])->name('form');
     });
 });
