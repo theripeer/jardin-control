@@ -37,7 +37,7 @@
 
         <li class="side-nav-item">
             <a href="apps-chat.html" class="side-nav-link">
-                <i class="uil-comments-alt"></i>
+                <i class="mdi mdi-format-list-bulleted"></i>
                 <span> Tareas </span>
             </a>
         </li>
@@ -45,22 +45,29 @@
         <li class="side-nav-title side-nav-item">Administracion</li>
 
         <li class="side-nav-item">
-            <a href="apps-calendar.html" class="side-nav-link">
-                <i class="uil-calender"></i>
+            <a href="{{route('teams.index')}}" class="side-nav-link">
+                <i class="mdi mdi-account-group"></i>
+                <span> Cuadrillas </span>
+            </a>
+        </li>
+
+        <li class="side-nav-item">
+            <a href="{{route('types.index')}}" class="side-nav-link">
+                <i class="mdi mdi-leaf"></i>
                 <span> Especies </span>
             </a>
         </li>
 
         <li class="side-nav-item">
-            <a href="apps-calendar.html" class="side-nav-link">
-                <i class="uil-calender"></i>
+            <a href="{{route('services.index')}}" class="side-nav-link">
+                <i class="mdi mdi-hammer-screwdriver"></i>
                 <span> Servicios </span>
             </a>
         </li>
 
         <li class="side-nav-item">
             <a href="apps-chat.html" class="side-nav-link">
-                <i class="uil-comments-alt"></i>
+                <i class="mdi mdi-account-lock"></i>
                 <span> Usuarios </span>
             </a>
         </li>

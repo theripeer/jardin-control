@@ -10,4 +10,9 @@ class Team extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'team_users', 'team_id', 'user_id')->withPivot('team_id','user_id');
+    }
 }
