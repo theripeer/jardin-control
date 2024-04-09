@@ -6,11 +6,15 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                    <li class="breadcrumb-item active">Form Elements</li>
+                    @isset($task)
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Editar</a></li>
+                    @else
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Crear</a></li>
+                    @endisset
+                    <li class="breadcrumb-item active">Tarea</li>
                 </ol>
             </div>
-            <h4 class="page-title">Form Elements</h4>
+            <h4 class="page-title">Informacion de Tarea</h4>
         </div>
     </div>
 </div> 
@@ -18,15 +22,18 @@
     <div class="col-12"> 
         <div class="card">
             <div class="card-body">
-                <form method="post" action="{{ route('types.form') }}">
+                <form method="post" action="{{ route('tasks.form') }}" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id" value="@isset($task){{$task->folio}}@endisset">
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Cuadrilla</label>
                                 <select class="select2 form-control" name="team_id" data-toggle="select2">
                                     @foreach ($teams as $team)
-                                        <option value="{{ $team->id }}">{{$team->name}}</option>  
+                                        <option value="{{ $team->id }}" @isset($task)
+                                            {{$task->team_id == $team->id ? 'selected' : ''}}
+                                        @endisset>{{$team->name}}</option>  
                                     @endforeach
                                 </select>
                             </div>
@@ -34,7 +41,9 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Numero de Folio</label>
-                                <input type="text" id="simpleinput" name="folio" class="form-control">
+                                <input type="text" id="simpleinput" name="folio" class="form-control" @isset($task)
+                                    value="{{$task->folio}}"
+                                @endisset>
                             </div>
                         </div>
                     </div>
@@ -43,7 +52,9 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Direccion</label>
-                                <input type="text" id="simpleinput" name="address" class="form-control">
+                                <input type="text" id="simpleinput" name="address" class="form-control"  @isset($task)
+                                    value="{{$task->address}}"
+                                @endisset>
                             </div>
                         </div>
                     </div>
@@ -52,9 +63,11 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Especie</label>
-                                <select class="select2 form-control" name="team_id" data-toggle="select2">
+                                <select class="select2 form-control" name="type_id" data-toggle="select2">
                                     @foreach ($types as $type)
-                                        <option value="{{ $type->id }}">{{$type->name}}</option>  
+                                        <option value="{{ $type->id }}" @isset($task)
+                                            {{$task->team_id == $team->id ? 'selected' : ''}}
+                                        @endisset>{{$type->name}}</option>  
                                     @endforeach
                                 </select>
                             </div>
@@ -62,26 +75,33 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Servicio</label>
-                                <select class="select2 form-control" name="team_id" data-toggle="select2">
+                                <select class="select2 form-control" name="service_id" data-toggle="select2">
                                     @foreach ($services as $service)
-                                        <option value="{{ $service->id }}">{{$service->name}}</option>  
+                                        <option value="{{ $service->id }}" @isset($task)
+                                            {{$task->team_id == $team->id ? 'selected' : ''}}
+                                        @endisset>{{$service->name}}</option>  
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
 
+
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Cantidad Servicios</label>
-                                <input type="text" id="simpleinput" name="qantity" class="form-control">
+                                <input type="text" id="simpleinput" name="quantity_services" class="form-control"  @isset($task)
+                                    value="{{$task->quantity_services}}"
+                                @endisset>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">DAP</label>
-                                <input type="text" id="simpleinput" name="dap" class="form-control">
+                                <input type="text" id="simpleinput" name="dap" class="form-control" @isset($task)
+                                    value="{{$task->quantity_services}}"
+                                @endisset>
                             </div>
                         </div>
                     </div>
@@ -92,7 +112,9 @@
                                 <label for="simpleinput" class="form-label">Plazo de Cumplimiento</label>
                                 <select class="select2 form-control" name="deadlines" data-toggle="select2">
                                     @for ($i = 1 ; $i <= 20; $i++)
-                                        <option value="{{ $i }}">{{$i}}</option>  
+                                        <option value="{{ $i }}" @isset($task)
+                                            {{$task->deadlines ==$i ? 'selected' : ''}}
+                                        @endisset>{{$i}}</option>  
                                     @endfor
                                 </select>
                             </div>
@@ -100,9 +122,11 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Estado Fitosanitario</label>
-                                <select class="select2 form-control" name="team_id" data-toggle="select2">
+                                <select class="select2 form-control" name="state_phytosanitary" data-toggle="select2">
                                     @foreach ($sanitary as $data)
-                                        <option value="{{ $data }}">{{$data}}</option>  
+                                        <option value="{{ $data }}"@isset($task)
+                                            {{$task->state_phytosanitary == $data ? 'selected' : ''}}
+                                        @endisset>{{$data}}</option>  
                                     @endforeach
                                 </select>
                             </div>
@@ -113,9 +137,11 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Estado</label>
-                                <select class="select2 form-control" name="team_id" data-toggle="select2">
+                                <select class="select2 form-control" name="state" data-toggle="select2">
                                     @foreach ($states as $state)
-                                        <option value="{{ $state }}">{{$state}}</option>  
+                                        <option value="{{ $state }}"@isset($task)
+                                            {{$task->state == $state ? 'selected' : ''}}
+                                        @endisset>{{$state}}</option>  
                                     @endforeach
                                 </select>
                             </div>
@@ -123,18 +149,81 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Estado Pago</label>
-                                <select class="select2 form-control" name="team_id" data-toggle="select2">
+                                <select class="select2 form-control" name="payment_state" data-toggle="select2">
                                     @foreach ($states_payment as $payment)
-                                        <option value="{{ $payment }}">{{$payment}}</option>  
+                                        <option value="{{ $payment }}"@isset($task)
+                                            {{$task->payment_state == $payment ? 'selected' : ''}}
+                                        @endisset>{{$payment}}</option>  
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="simpleinput" class="form-label">Imagen 1</label>
+                                <input type="file" name="img_1" id="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="simpleinput" class="form-label">Imagen 2</label>
+                                <input type="file" name="img_2" id="" class="form-control">
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-12">
-                            <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                            <label for="simpleinput" class="form-label">Observacion</label>
+                            <textarea name="observation" class="form-control" id="" cols="30" rows="5"> @isset($task) {{$task->observation}}  @endisset</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3 mt-1">
+                                <label for="simpleinput" class="form-label">Imagen 3</label>
+                                <input type="file" name="img_3" id="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3 mt-1">
+                                <label for="simpleinput" class="form-label">Imagen 4</label>
+                                <input type="file" name="img_4" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3">
+                            @isset($task)
+                             @if ($task->getImage($task->img_1))
+                                <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_1")}}" class="btn btn-primary"> Imagen 1</a>
+                             @endif
+                            @endisset
+                        </div>
+                        <div class="col-3">
+                            @isset($task)
+                             @if ($task->getImage($task->img_2))
+                                <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_2")}}" class="btn btn-primary"> Imagen 2</a>
+                             @endif
+                            @endisset
+                        </div>
+                        <div class="col-3">
+                            @isset($task)
+                             @if ($task->getImage($task->img_3))
+                                <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_3")}}" class="btn btn-primary"> Imagen 3</a>
+                             @endif
+                            @endisset
+                        </div>
+                        <div class="col-3">
+                            @isset($task)
+                             @if ($task->getImage($task->img_4))
+                                <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_4")}}" class="btn btn-primary"> Imagen 4</a>
+                             @endif
+                            @endisset
                         </div>
                     </div>
                     
@@ -151,7 +240,3 @@
     </div>
 </div>
 @endsection
-
-<script>
-
-</script>

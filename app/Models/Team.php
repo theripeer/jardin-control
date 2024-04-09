@@ -15,4 +15,9 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class, 'team_users', 'team_id', 'user_id')->withPivot('team_id','user_id');
     }
+
+    public function countUsers()
+    {
+        return count($this->users);
+    }
 }

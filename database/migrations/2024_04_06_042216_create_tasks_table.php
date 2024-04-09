@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('type_id')->nullable();
             $table->unsignedBigInteger('service_id')->nullable();
             $table->string('folio')->unique();
-            $table->integer('cant_services');
+            $table->integer('quantity_services');
             $table->decimal('dap', 8, 2);
             $table->integer('deadlines');
             $table->string('address');

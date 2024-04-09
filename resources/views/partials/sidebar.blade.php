@@ -65,7 +65,7 @@
         </li>
 
         <li class="side-nav-item">
-            <a href="apps-chat.html" class="side-nav-link">
+            <a href="{{route('users.index')}}" class="side-nav-link">
                 <i class="mdi mdi-account-lock"></i>
                 <span> Usuarios </span>
             </a>
@@ -74,7 +74,7 @@
     </ul>
     <!-- End Sidebar -->
 
-    {{-- <div class="clearfix"></div> --}}
+    <div class="clearfix"></div>
 
 </div>
 <!-- Sidebar -left -->

@@ -36,6 +36,12 @@ return [
             'throw' => false,
         ],
 
+        'images_task' => [
+            'driver' => 'local',
+            'root' => base_path('public/images/task'),
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

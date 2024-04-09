@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Task extends Model
 {
@@ -16,7 +17,7 @@ class Task extends Model
         'folio',
         'quantity_services',
         'dap',
-        'deadline',
+        'deadlines',
         'address',
         'state',
         'payment_state',
@@ -28,25 +29,28 @@ class Task extends Model
         'img_4',
     ];
 
-    /* $table->unsignedBigInteger('team_id');
-            $table->unsignedBigInteger('type_id')->nullable();
-            $table->unsignedBigInteger('service_id')->nullable();
-            $table->string('folio')->unique();
-            $table->integer('cant_services');
-            $table->decimal('dap', 8, 2);
-            $table->integer('deadlines');
-            $table->string('address');
-            $table->enum('state_phytosanitary', ['BUENO', 'REGULAR', 'MALO', 'MUERTO']);
-            $table->enum('state', ['CREADA', 'EN PROCESO', 'RECHAZADA', 'REALIZADA'])->default('CREADA');
-            $table->enum('payment_state', ['POR PAGAR', 'PAGADO'])->default('POR PAGAR');
-            $table->longText('observation')->nullable();
-            $table->string('img_1')->nullable();
-            $table->string('img_2')->nullable();
-            $table->string('img_3')->nullable();
-            $table->string('img_4')->nullable();
-            $table->timestamps();
-            
-            $table->foreign('team_id')->references('id')->on('teams');
-            $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('service_id')->references('id')->on('services'); */
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'type_id');
+    }
+
+    public function getImage($target)
+    {
+        try {
+            return Storage::disk('images_task')->exists("{$this->folio}/{$target}");
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
 }

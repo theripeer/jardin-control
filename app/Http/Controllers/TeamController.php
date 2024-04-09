@@ -33,7 +33,7 @@ class TeamController extends Controller
 
             return redirect()->to(route('teams.index'));
         }
-        $users = User::all();
+        $users = User::all();//User::doesntHave('teams')->get();
         $team = $id ? Team::find($id) : null;
         $teamusers = $id ? $team->users->map(function($u) { return $u->id; })->toArray() : [];
 

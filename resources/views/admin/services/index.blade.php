@@ -17,7 +17,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('teams.form') }}" class="btn btn-primary float-end"> + Agregar</a>
+                <a href="{{ route('services.form') }}" class="btn btn-primary float-end"> + Agregar</a>
                 <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>

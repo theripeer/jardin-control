@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'username',
         'password',
-        'is_active'
+        'is_active',
+        'rol'
     ];
 
     /**
@@ -45,4 +46,9 @@ class User extends Authenticatable
         'password' => 'hashed',
         'is_active' => 'boolean'
     ];
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class,'team_users', 'user_id', 'team_id');
+    }
 }

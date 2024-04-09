@@ -7,6 +7,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +51,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['prefix' => '/tareas', 'as' => 'tasks.'], function () {
         Route::get('', [TaskController::class, 'index'])->name('index');
         Route::match(['GET', 'POST'], '/agregar-editar/{id?}', [TaskController::class, 'addEdit'])->name('form');
+    });
+
+    Route::group(['prefix' => '/usuarios', 'as' => 'users.'], function () {
+        Route::get('', [UserController::class, 'index'])->name('index');
+        Route::match(['GET', 'POST'], '/agregar-editar/{id?}', [UserController::class, 'addEdit'])->name('form');
     });
 });

@@ -24,21 +24,30 @@
                             <th>Folio</th>
                             <th>Servicio</th>
                             <th>Cuadrilla</th>
+                            <th>Especie</th>
+                            <th>Estado</th>
+                            <th>Estado Pago</th>
                             <th width="20%">Accion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($tasks as $type)
+                        @forelse ($tasks as $task)
                             <tr>
-                            <td>{{$type->name}}</td>
-                            <td>{{$type->is_active == 1 ? 'Si' : 'No'}}</td>
-                            <td>
-                                <a href="{{route('tasks.form', $type->id)}}"> Editar</a>
-                                <a href="{{route('tasks.form', $type->id)}}" class="text-danger"> Eliminar</a>
-                            </td>
-                        </tr>
+                                <td>{{$task->folio}}</td>
+                                <td>{{$task->service->name}}</td>
+                                <td>{{$task->team->name}}</td>
+                                <td>{{$task->type->name}}</td>
+                                <td>{{$task->state}}</td>
+                                <td>{{$task->payment_state}}</td>
+                                <td>
+                                    <a href="{{route('tasks.form', $task->id)}}"> Editar</a>
+                                    <a href="{{route('tasks.form', $task->id)}}" class="text-danger"> Eliminar</a>
+                                </td>
+                            </tr>
                         @empty
-                            
+                            <tr>
+                                <td colspan="7" class="text-center">Sin informacion ...</td>
+                            </tr>
                         @endforelse
                         
                     </tbody>
