@@ -1,4 +1,8 @@
 @extends('layout.app')
+@push('style')
+{{-- <link href="assets/css/vendor/dataTables.bootstrap5.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/vendor/responsive.bootstrap5.css" rel="stylesheet" type="text/css" /> --}}
+@endpush
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -18,7 +22,7 @@
         <div class="card">
             <div class="card-body">
                 <a href="{{ route('types.form') }}" class="btn btn-primary float-end" > + Agregar</a>
-                <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                <table class="table mb-0">
                     <thead>
                         <tr>
                             <th>Nombre</th>
@@ -41,53 +45,63 @@
                         @endforelse
                         
                     </tbody>
-                </table>     
+                </table>
+                <div class="mt-3">
+                    {!! $types->links('pagination::bootstrap-5') !!}
+                </div>
             </div> <!-- end card body-->
+            
         </div> <!-- end card -->
     </div><!-- end col-->
 </div>
 @endsection
 @push('script')
-    <script>
-        let $ = jQuery;
-        $(document).ready(function(){
-            $('.delete').on('click', function(e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'Estas seguro que desea eliminar este registro?',
-                    text: "Una vez eliminado no podra reutilizar su informacion!",
-                    icon: 'error',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, Eliminar!',
-                    cancelButtonText: 'No'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        let url = "{{ route('types.delete', ':id') }}"
-                        url = url.replace(':id', $(this).attr('row-id'));
-                        $.ajax({
-                            type: 'GET',
-                            url: url,
-                            success: function(res) {
-                                Swal.fire(
-                                    'Eliminado!',
-                                    'Se ha eliminado el registro exitosamente',
-                                    'success'
-                                );
-                                window.location.reload();
-                            },
-                            error: function(err) {
-                                Swal.fire(
-                                    'Info!',
-                                    err.responseJSON.message,
-                                    'warning'
-                                );
-                            }
-                        })
-                    }
-                })
-            });
-        })
-    </script>
+{{-- <script src="{{asset('assets/js/vendor/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/js/vendor/dataTables.bootstrap5.js')}}"></script>
+<script src="{{asset('assets/js/vendor/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets/js/vendor/responsive.bootstrap5.min.js')}}"></script>
+<script src="{{asset('assets/js/pages/demo.datatable-init.js')}}"></script>
+ --}}
+<script>
+    let $ = jQuery;
+    $(document).ready(function(){
+        $('.delete').on('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Estas seguro que desea eliminar este registro?',
+                text: "Una vez eliminado no podra reutilizar su informacion!",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Eliminar!',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let url = "{{ route('types.delete', ':id') }}"
+                    url = url.replace(':id', $(this).attr('row-id'));
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(res) {
+                            Swal.fire(
+                                'Eliminado!',
+                                'Se ha eliminado el registro exitosamente',
+                                'success'
+                            );
+                            window.location.reload();
+                        },
+                        error: function(err) {
+                            Swal.fire(
+                                'Info!',
+                                err.responseJSON.message,
+                                'warning'
+                            );
+                        }
+                    })
+                }
+            })
+        });
+    })
+</script>
 @endpush

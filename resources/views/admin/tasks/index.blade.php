@@ -51,7 +51,10 @@
                         @endforelse
                         
                     </tbody>
-                </table>     
+                </table>
+                <div class="mt-3">
+                    {!! $tasks->links('pagination::bootstrap-5') !!}
+                </div>   
             </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
