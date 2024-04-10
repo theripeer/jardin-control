@@ -12,13 +12,36 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('tasks.form') }}" class="btn btn-primary float-end" > + Agregar</a>
-                <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Busqueda</label>
+                                <input type="text" class="form-control" id="search" name="term" value="{{$term}}" placeholder="Buscar ...">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group" style="padding-top: 21px;">
+                                <button type="submit" class="btn btn-primary rounded" data-toggle="tooltip" title="Buscar"><i class="mdi mdi-magnify"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="overflow-y: auto;">
+            <div class="card-body">
+                <a href="{{ route('tasks.form') }}" class="btn btn-primary float-end"> + Agregar</a>
+                <table id="basic-datatable" class="table dt-responsive" >
                     <thead>
                         <tr>
                             <th>Folio</th>

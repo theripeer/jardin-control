@@ -8,10 +8,15 @@ use Illuminate\Support\Facades\Hash;
 use Validation;
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::select('id', 'name', 'email' ,'username', 'rol')->paginate(10);
-        return view('admin.users.index', compact('users'));
+        $term = $request->query('term', '');
+        $users = User::select('id', 'name', 'email' ,'username', 'rol')->search($term)->paginate(10);
+        
+        if (!is_null($term))
+            $users->appends(['term' => $term]);
+
+        return view('admin.users.index', compact('users', 'term'));
     }
 
     public function addEdit(Request $request, $id = false)

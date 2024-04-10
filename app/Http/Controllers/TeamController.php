@@ -9,10 +9,13 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $teams = Team::select('id', 'name')->paginate(10);
-        return view('admin.teams.index', compact('teams'));
+        $term = $request->query('term', '');
+        $teams = Team::select('id', 'name')->search($term)->paginate(10);
+        if (!is_null($term))
+            $teams->appends(['term' => $term]);
+        return view('admin.teams.index', compact('teams', 'term'));
     }
 
     public function addEdit(Request $request, $id = false)

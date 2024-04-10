@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Task extends Model
 {
-    use HasFactory;
+    use Searchable;
 
     protected $fillable = [
         'team_id',
@@ -28,6 +29,23 @@ class Task extends Model
         'img_3',
         'img_4',
     ];
+
+    protected $searchable = [
+        'folio',
+        'service.name',
+        'team.name',
+    ];
+
+    public function scopeByUser($query)
+    {
+        $user = auth()->user();
+        if (!in_array($user->rol, ['Administrador', 'Supervisor'])) {
+            $team = $user->teams()->first()->id;
+            $query->where("tasks.team_id", $team);
+        }
+
+        return $query;
+    }
 
     public function service()
     {

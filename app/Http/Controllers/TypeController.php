@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $types = Type::select('id', 'name', 'is_active')->paginate(10);
-        return view('admin.types.index', compact('types'));
+        $term = $request->query('term', '');
+        $types = Type::select('id', 'name', 'is_active')->search($term)->paginate(10);
+
+        if (!is_null($term))
+            $types->appends(['term' => $term]);
+
+        return view('admin.types.index', compact('types', 'term'));
     }
 
     public function addEdit(Request $request, $id = false)

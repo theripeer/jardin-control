@@ -10,19 +10,19 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::paginate(10);
-        $user = auth()->user();
-        if($user->rol == 'Administrador'){
-            $tasks = Task::paginate(10);
-        } else {
-            $team = $user->teams()->first()->id;
-            $tasks = Task::whereTeamId($team)->paginate(10);
-        }
+        $term = $request->query('term', '');
 
+        $tasks = Task::orderBy('id', 'DESC')
+            ->search($term)
+            ->byUser()
+            ->paginate(10);
 
-        return view('admin.tasks.index', compact('tasks'));
+        if (!is_null($term))
+            $tasks->appends(['term' => $term]);
+
+        return view('admin.tasks.index', compact('tasks', 'term'));
     }
 
     public function addEdit(Request $request, $id = false)

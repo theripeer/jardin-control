@@ -1,8 +1,5 @@
 @extends('layout.app')
-@push('style')
-{{-- <link href="assets/css/vendor/dataTables.bootstrap5.css" rel="stylesheet" type="text/css" />
-<link href="assets/css/vendor/responsive.bootstrap5.css" rel="stylesheet" type="text/css" /> --}}
-@endpush
+
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -16,9 +13,32 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
 <div class="row">
     <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Busqueda</label>
+                                <input type="text" class="form-control" id="search" name="term" value="{{$term}}" placeholder="Buscar ...">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group" style="padding-top: 21px;">
+                                <button type="submit" class="btn btn-primary rounded" data-toggle="tooltip" title="Buscar"><i class="mdi mdi-magnify"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12" style="overflow-y: auto;">
         <div class="card">
             <div class="card-body">
                 <a href="{{ route('types.form') }}" class="btn btn-primary float-end" > + Agregar</a>
@@ -56,12 +76,6 @@
 </div>
 @endsection
 @push('script')
-{{-- <script src="{{asset('assets/js/vendor/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/js/vendor/dataTables.bootstrap5.js')}}"></script>
-<script src="{{asset('assets/js/vendor/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('assets/js/vendor/responsive.bootstrap5.min.js')}}"></script>
-<script src="{{asset('assets/js/pages/demo.datatable-init.js')}}"></script>
- --}}
 <script>
     let $ = jQuery;
     $(document).ready(function(){

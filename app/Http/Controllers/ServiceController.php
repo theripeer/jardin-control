@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::select('id', 'name', 'price')->paginate(10);
-        return view('admin.services.index', compact('services'));
+        $term = $request->query('term', '');
+        $services = Service::select('id', 'name', 'price')->search($term)->paginate(10);
+        if (!is_null($term))
+            $services->appends(['term' => $term]);
+        return view('admin.services.index', compact('services', 'term'));
     }
 
     public function addEdit(Request $request, $id = false)
