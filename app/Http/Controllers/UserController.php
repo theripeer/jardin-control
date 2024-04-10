@@ -55,4 +55,11 @@ class UserController extends Controller
         $user = $id ? User::find($id) : null;
         return view('admin.users.form', compact('user'));
     }
+
+    public function delete($id)
+    {
+        $user_team = \DB::table('team_users')->whereUserId($id)->delete();
+        $user = User::find($id)->delete();
+        return response()->json([""], 200);
+    }
 }

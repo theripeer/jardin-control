@@ -39,7 +39,7 @@
                                 <td>{{$user->rol}}</td>
                                 <td>
                                     <a href="{{route('users.form', $user->id)}}"> Editar</a>
-                                    <a href="{{route('users.form', $user->id)}}" class="text-danger"> Eliminar</a>
+                                    <a href="javascript:void(0)" class="text-danger delete" row-id="{{$user->id}}"> Eliminar</a>
                                 </td>
                             </tr>
                         @empty
@@ -53,3 +53,47 @@
     </div><!-- end col-->
 </div>
 @endsection
+@push('script')
+    <script>
+        let $ = jQuery;
+        $(document).ready(function(){
+            $('.delete').on('click', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Estas seguro que desea eliminar este registro?',
+                    text: "Una vez eliminado no podra reutilizar su informacion!",
+                    icon: 'error',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Eliminar!',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let url = "{{ route('users.delete', ':id') }}"
+                        url = url.replace(':id', $(this).attr('row-id'));
+                        $.ajax({
+                            type: 'GET',
+                            url: url,
+                            success: function(res) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'Se ha eliminado el registro exitosamente',
+                                    'success'
+                                );
+                                window.location.reload();
+                            },
+                            error: function(err) {
+                                Swal.fire(
+                                    'Info!',
+                                    res.message,
+                                    'warning'
+                                );
+                            }
+                        })
+                    }
+                })
+            });
+        })
+    </script>
+@endpush

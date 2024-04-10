@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -29,5 +30,16 @@ class TypeController extends Controller
 
         $type = $id ? Type::find($id) : null;
         return view('admin.types.form', compact('type'));
+    }
+
+    public function delete($id)
+    {
+        $task = Task::whereTypeId($id)->get();
+
+        if (count($task) > 0) {
+            return response()->json(["message" => "No se puede eliminar esta especie ya tiene asignado tareas, elimine o cambie las tareas que contengan esta especie."], 422);
+        }
+        $task = Type::find($id)->delete();
+        return response()->json([""], 200);
     }
 }

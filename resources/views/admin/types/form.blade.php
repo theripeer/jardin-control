@@ -4,11 +4,12 @@
         <div class="card-body">
             <form method="post" action="{{ route('types.form') }}">
                 @csrf
+                <input type="hidden" name="id" value="@isset($type){{$type->id}}@endisset">
                 <div class="row">
                     <div class="col-6">
                         <div class="mb-3">
                             <label for="simpleinput" class="form-label">Nombre Especie</label>
-                            <input type="text" id="simpleinput" name="name" class="form-control">
+                            <input type="text" id="simpleinput" name="name" class="form-control" value="@isset($type){{$type->name}}@endisset">
                         </div>
                     </div>
                     <input type="hidden" name="is_active" id="is_active" @isset($type)

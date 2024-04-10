@@ -4,17 +4,18 @@
         <div class="card-body">
             <form method="post" action="{{ route('services.form') }}">
                 @csrf
+                <input type="hidden" name="id" value="@isset($service){{$service->id}}@endisset">
                 <div class="row">
                     <div class="col-6">
                         <div class="mb-3">
                             <label for="simpleinput" class="form-label">Nombre Servicio</label>
-                            <input type="text" id="simpleinput" name="name" class="form-control">
+                            <input type="text" id="simpleinput" name="name" class="form-control" value="@isset($service){{$service->name}}@endisset">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="mb-3">
                             <label for="simpleinput" class="form-label">Precio</label>
-                            <input type="text" id="simpleinput" name="price" class="form-control">
+                            <input type="text" id="simpleinput" name="price" class="form-control" value="@isset($service){{$service->price}}@endisset">
                         </div>
                     </div>
                 </div>

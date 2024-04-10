@@ -80,4 +80,13 @@ class TaskController extends Controller
 
         return view('admin.tasks.form', compact('task', 'teams', 'types', 'services', 'states', 'sanitary', 'states_payment'));
     }
+
+    public function delete($id)
+    {
+        $task = Task::find($id);
+        \File::deleteDirectory(public_path("/images/task/{$task->folio}"));
+        $task->delete();
+
+        return response()->json([""], 200);
+    }
 }
