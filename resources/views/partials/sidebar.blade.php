@@ -41,35 +41,37 @@
             </a>
         </li>
 
-        <li class="side-nav-title side-nav-item">Administracion</li>
+        @if (auth()->user()->rol == "Administrador")
+            <li class="side-nav-title side-nav-item">Administracion</li>
 
-        <li class="side-nav-item">
-            <a href="{{route('teams.index')}}" class="side-nav-link">
-                <i class="mdi mdi-account-group"></i>
-                <span> Cuadrillas </span>
-            </a>
-        </li>
+            <li class="side-nav-item">
+                <a href="{{route('teams.index')}}" class="side-nav-link">
+                    <i class="mdi mdi-account-group"></i>
+                    <span> Cuadrillas </span>
+                </a>
+            </li>
 
-        <li class="side-nav-item">
-            <a href="{{route('types.index')}}" class="side-nav-link">
-                <i class="mdi mdi-leaf"></i>
-                <span> Especies </span>
-            </a>
-        </li>
+            <li class="side-nav-item">
+                <a href="{{route('types.index')}}" class="side-nav-link">
+                    <i class="mdi mdi-leaf"></i>
+                    <span> Especies </span>
+                </a>
+            </li>
 
-        <li class="side-nav-item">
-            <a href="{{route('services.index')}}" class="side-nav-link">
-                <i class="mdi mdi-hammer-screwdriver"></i>
-                <span> Servicios </span>
-            </a>
-        </li>
+            <li class="side-nav-item">
+                <a href="{{route('services.index')}}" class="side-nav-link">
+                    <i class="mdi mdi-hammer-screwdriver"></i>
+                    <span> Servicios </span>
+                </a>
+            </li>
 
-        <li class="side-nav-item">
-            <a href="{{route('users.index')}}" class="side-nav-link">
-                <i class="mdi mdi-account-lock"></i>
-                <span> Usuarios </span>
-            </a>
-        </li>
+            <li class="side-nav-item">
+                <a href="{{route('users.index')}}" class="side-nav-link">
+                    <i class="mdi mdi-account-lock"></i>
+                    <span> Usuarios </span>
+                </a>
+            </li>
+        @endif
 
     </ul>
     <!-- End Sidebar -->

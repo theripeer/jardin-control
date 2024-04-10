@@ -57,4 +57,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('', [UserController::class, 'index'])->name('index');
         Route::match(['GET', 'POST'], '/agregar-editar/{id?}', [UserController::class, 'addEdit'])->name('form');
     });
+
+    Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 });

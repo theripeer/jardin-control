@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Validation;
 class UserController extends Controller
 {
@@ -31,17 +32,21 @@ class UserController extends Controller
 
             $this->validate($request, $rules); */
 
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'username' => $request->username,
+                'rol' => $request->rol,
+                'is_active' => $request->is_active ?? true,
+            ];
+
+            if ($request->password != '') {
+                $rules['password'] =  Hash::make($request->password);
+            }
 
             User::updateOrCreate(
                 ['id' => $request->id],
-                [
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'username' => $request->username,
-                    'password' => $request->password,
-                    'is_active' => $request->is_active ?? true,
-                    'rol' => $request->rol,
-                ]
+                $data
             );
 
             return redirect()->to(route('users.index'));

@@ -4,6 +4,7 @@
         <div class="card-body">
             <form method="post" action="{{ route('users.form') }}">
                 @csrf
+                <input type="hidden" id="simpleinput" name="id" class="form-control" value="@isset($user){{$user->id}}@endisset">
                 <div class="row">
                     <div class="col-6">
                         <div class="mb-3">

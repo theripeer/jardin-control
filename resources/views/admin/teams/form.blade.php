@@ -4,9 +4,7 @@
         <div class="card-body">
             <form method="post" action="{{ route('teams.form') }}">
                 @csrf
-                <input type="hidden" name="id" class="form-control" @isset($team)
-                                value="{{$team->id}}"
-                            @endisset>
+                <input type="hidden" name="id" class="form-control"value="@isset($team){{$team->id}}@endisset">
                 <div class="row">
                     <div class="col-6">
                         <div class="mb-3">

@@ -13,6 +13,15 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::paginate(10);
+        $user = auth()->user();
+        if($user->rol == 'Administrador'){
+            $tasks = Task::paginate(10);
+        } else {
+            $team = $user->teams()->first()->id;
+            $tasks = Task::whereTeamId($team)->paginate(10);
+        }
+
+
         return view('admin.tasks.index', compact('tasks'));
     }
 

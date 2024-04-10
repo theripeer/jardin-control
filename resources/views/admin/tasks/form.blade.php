@@ -24,7 +24,7 @@
             <div class="card-body">
                 <form method="post" action="{{ route('tasks.form') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="@isset($task){{$task->folio}}@endisset">
+                    <input type="hidden" name="id" value="@isset($task){{$task->id}}@endisset">
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-3">
@@ -199,28 +199,28 @@
                     <div class="row">
                         <div class="col-3">
                             @isset($task)
-                             @if ($task->getImage($task->img_1))
+                             @if ($task->getImage($task->img_1) && $task->img_1)
                                 <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_1")}}" class="btn btn-primary"> Imagen 1</a>
                              @endif
                             @endisset
                         </div>
                         <div class="col-3">
                             @isset($task)
-                             @if ($task->getImage($task->img_2))
+                             @if ($task->getImage($task->img_2) && $task->img_2)
                                 <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_2")}}" class="btn btn-primary"> Imagen 2</a>
                              @endif
                             @endisset
                         </div>
                         <div class="col-3">
                             @isset($task)
-                             @if ($task->getImage($task->img_3))
+                             @if ($task->getImage($task->img_3) && $task->img_3)
                                 <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_3")}}" class="btn btn-primary"> Imagen 3</a>
                              @endif
                             @endisset
                         </div>
                         <div class="col-3">
                             @isset($task)
-                             @if ($task->getImage($task->img_4))
+                             @if ($task->getImage($task->img_4) && $task->img_4)
                                 <a target="_blank" href="{{ asset("images/task/$task->folio/$task->img_4")}}" class="btn btn-primary"> Imagen 4</a>
                              @endif
                             @endisset
