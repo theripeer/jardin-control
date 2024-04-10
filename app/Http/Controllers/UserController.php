@@ -41,7 +41,7 @@ class UserController extends Controller
             ];
 
             if ($request->password != '') {
-                $rules['password'] =  Hash::make($request->password);
+                $data['password'] =  Hash::make($request->password);
             }
 
             User::updateOrCreate(
