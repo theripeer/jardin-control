@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\Team;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
@@ -29,12 +30,28 @@ class TaskController extends Controller
     {
         if ($request->isMethod('POST')) {
 
+
+
             if($request->id) {
                 $task = Task::updateOrCreate(
                     ['id' => $request->id],
                     $request->except(['id', 'img_1', 'img_2', 'img_3', 'img_4', 'folio'])
                 );
             } else {
+
+                $validator = Validator::make($request->all(), [
+                    'folio' => 'required|unique:tasks'
+                ], $messages = [
+                    'unique' => 'El numero de :attribute ya existe.',
+                ]);
+                
+                if ($validator->fails()) {
+                    return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+                }
+
                 $task = Task::updateOrCreate(
                     ['id' => $request->id],
                     $request->except(['id', 'img_1', 'img_2', 'img_3', 'img_4'])

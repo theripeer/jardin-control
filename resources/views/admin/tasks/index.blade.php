@@ -40,7 +40,9 @@
     <div class="col-12">
         <div class="card" style="overflow-y: auto;">
             <div class="card-body">
-                <a href="{{ route('tasks.form') }}" class="btn btn-primary float-end"> + Agregar</a>
+                @if(in_array(auth()->user()->rol, ['Administrador', 'Supervisor']))
+                    <a href="{{ route('tasks.form') }}" class="btn btn-primary float-end"> + Agregar</a>
+                @endif
                 <table id="basic-datatable" class="table dt-responsive" >
                     <thead>
                         <tr>
@@ -63,8 +65,12 @@
                                 <td>{{$task->state}}</td>
                                 <td>{{$task->payment_state}}</td>
                                 <td>
-                                    <a href="{{route('tasks.form', $task->id)}}"> Editar</a>
-                                    <a href="javascript:void(0)" class="text-danger delete" row-id="{{$task->id}}"> Eliminar</a>
+                                    @if(in_array(auth()->user()->rol, ['Administrador', 'Supervisor']))
+                                        <a href="{{route('tasks.form', $task->id)}}"> Editar</a>
+                                        <a href="javascript:void(0)" class="text-danger delete" row-id="{{$task->id}}"> Eliminar</a>
+                                    @else
+                                        <a href="{{route('tasks.form', $task->id)}}"> Ver</a>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
